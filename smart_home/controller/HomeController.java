@@ -1,7 +1,11 @@
 package smart_home.controller;
 
 import smart_home.model.Device;
+import smart_home.model.DeviceFactory;
+import smart_home.model.Settings;
+import smart_home.model.Thermostat;
 import smart_home.view.HomeView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +18,8 @@ public class HomeController {
         this.view = view;
     }
 
-    public void addDevice(Device device) {
+    public void addDevice(String type, String name) {
+        Device device = DeviceFactory.createDevice(type, name);
         devices.add(device);
         view.showDeviceAdded(device);
     }
@@ -35,5 +40,10 @@ public class HomeController {
 
     public List<Device> getDevices() {
         return devices;
+    }
+
+    public void applyDefaultTemperature(Thermostat thermostat) {
+        int defaultTemp = Settings.getInstance().getDefaultTemperature();
+        thermostat.setTemperature(defaultTemp);
     }
 }
