@@ -1,11 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Smart Home Project Started");
+        SmartHome smartHome = new SmartHome();
 
-        Device light = new Device("Living Room Light", "Light");
-        Device thermostat = new Device("Bedroom Thermostat", "Thermostat");
+        Device light = new Light();
+        Device thermostat = new Thermostat();
 
-        light.turnOn();
-        thermostat.turnOn();
+        smartHome.addDevice(light);
+        smartHome.addDevice(thermostat);
+
+        smartHome.activateAll();
+        smartHome.deactivateAll();
     }
 }
