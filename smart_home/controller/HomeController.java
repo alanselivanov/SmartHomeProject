@@ -2,7 +2,6 @@ package smart_home.controller;
 
 import smart_home.model.Device;
 import smart_home.view.HomeView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class HomeController {
         this.devices = new ArrayList<>();
         this.view = view;
     }
-    
+
     public void addDevice(Device device) {
         devices.add(device);
         view.showDeviceAdded(device);
@@ -25,13 +24,13 @@ public class HomeController {
         view.showDeviceStatus(device);
     }
 
-    public void performDeviceFunction(Device device) {
-        device.performFunction();
-    }
-
     public void turnOffDevice(Device device) {
         device.turnOff();
         view.showDeviceStatus(device);
+    }
+
+    public void performDeviceFunction(Device device) {
+        device.performFunction();
     }
 
     public List<Device> getDevices() {
