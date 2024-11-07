@@ -1,5 +1,8 @@
 package smart_home;
 
+import smart_home.Observer_Pattern.DeviceManager;
+import smart_home.model.Camera;
+import smart_home.model.Light;
 
 import smart_home.ChainofResponsibility.DeviceHandler;
 import smart_home.ChainofResponsibility.LightHandler;
@@ -56,5 +59,19 @@ public class Main {
 
         request = "unknown";  
         lightHandler.handleRequest(request);
+
+
+        DeviceManager deviceManager = new DeviceManager();
+
+        Camera camera = new Camera("Front Door");
+        Light light = new Light("Living Room");
+        Thermostat thermostat1 = new Thermostat("Hallway");
+
+        deviceManager.addObserver(camera);
+        deviceManager.addObserver(light);
+        deviceManager.addObserver(thermostat1);
+
+        deviceManager.changeState("Security Mode Activated");
+        deviceManager.changeState("Security Mode Deactivated");
     }
 }
