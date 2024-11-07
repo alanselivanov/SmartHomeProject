@@ -7,6 +7,7 @@ import smart_home.model.Light;
 import smart_home.ChainofResponsibility.DeviceHandler;
 import smart_home.ChainofResponsibility.LightHandler;
 import smart_home.ChainofResponsibility.ThermostatHandler;
+import smart_home.Facade_Pattern.SmartHomeFacade;
 import smart_home.ChainofResponsibility.CameraHandler;
 
 import smart_home.controller.HomeController;
@@ -14,6 +15,7 @@ import smart_home.model.Device;
 import smart_home.model.Settings;
 import smart_home.model.Thermostat;
 import smart_home.view.HomeView;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -73,5 +75,14 @@ public class Main {
 
         deviceManager.changeState("Security Mode Activated");
         deviceManager.changeState("Security Mode Deactivated");
+
+
+        DeviceManager deviceManager2 = new DeviceManager();
+
+        SmartHomeFacade facade = new SmartHomeFacade(controller, deviceManager2);
+
+        facade.turnOnAllDevices();
+        facade.activateSecurityMode();
+        facade.setDefaultTemperature(24);
     }
 }

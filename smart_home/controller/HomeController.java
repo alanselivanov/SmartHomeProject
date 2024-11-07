@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeController {
+
+    public HomeController() {
+        devices = new ArrayList<>();
+    }
     private List<Device> devices;
     private HomeView view;
 
@@ -40,6 +44,16 @@ public class HomeController {
 
     public List<Device> getDevices() {
         return devices;
+    }
+
+    public void sendRequest(String request) {
+        for (Device device : devices) {
+            if (request.equals("Turn on all devices")) {
+                turnOnDevice(device);
+            } else if (request.equals("Turn off all devices")) {
+                turnOffDevice(device);
+            }
+        }
     }
 
     public void applyDefaultTemperature(Thermostat thermostat) {
