@@ -1,5 +1,11 @@
 package smart_home;
 
+
+import smart_home.ChainofResponsibility.DeviceHandler;
+import smart_home.ChainofResponsibility.LightHandler;
+import smart_home.ChainofResponsibility.ThermostatHandler;
+import smart_home.ChainofResponsibility.CameraHandler;
+
 import smart_home.controller.HomeController;
 import smart_home.model.Device;
 import smart_home.model.Settings;
@@ -30,5 +36,25 @@ public class Main {
         if (thermostat != null) {
             controller.applyDefaultTemperature(thermostat);
         }
+
+        DeviceHandler lightHandler = new LightHandler();
+        DeviceHandler thermostatHandler = new ThermostatHandler();
+        DeviceHandler cameraHandler = new CameraHandler();
+
+
+        lightHandler.setNextHandler(thermostatHandler);
+        thermostatHandler.setNextHandler(cameraHandler);
+
+        String request = "light";  
+        lightHandler.handleRequest(request);
+
+        request = "thermostat";
+        lightHandler.handleRequest(request);
+
+        request = "camera";
+        lightHandler.handleRequest(request);
+
+        request = "unknown";  
+        lightHandler.handleRequest(request);
     }
 }
