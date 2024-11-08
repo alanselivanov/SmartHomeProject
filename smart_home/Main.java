@@ -3,7 +3,7 @@ package smart_home;
 import smart_home.Observer_Pattern.DeviceManager;
 import smart_home.model.Camera;
 import smart_home.model.Light;
-
+import smart_home.model.NightModeDecorator;
 import smart_home.ChainofResponsibility.DeviceHandler;
 import smart_home.ChainofResponsibility.LightHandler;
 import smart_home.ChainofResponsibility.ThermostatHandler;
@@ -25,6 +25,17 @@ public class Main {
         controller.addDevice("light", "Living Room Light");
         controller.addDevice("thermostat", "Main Thermostat");
         controller.addDevice("camera", "Front Door Camera");
+
+        Device camera = controller.getDevices().stream()
+                .filter(device -> device.getName().equals("Front Door Camera"))
+                .findFirst()
+                .orElse(null);
+
+        if (camera != null) {
+            Device cameraWithNightMode = new NightModeDecorator(camera);
+            controller.getDevices().remove(camera);
+            controller.getDevices().add(cameraWithNightMode);
+        }
 
         for (Device device : controller.getDevices()) {
             controller.turnOnDevice(device);
@@ -65,11 +76,11 @@ public class Main {
 
         DeviceManager deviceManager = new DeviceManager();
 
-        Camera camera = new Camera("Front Door");
+        Camera camera1 = new Camera("Front Door");
         Light light = new Light("Living Room");
         Thermostat thermostat1 = new Thermostat("Hallway");
 
-        deviceManager.addObserver(camera);
+        deviceManager.addObserver(camera1);
         deviceManager.addObserver(light);
         deviceManager.addObserver(thermostat1);
 
